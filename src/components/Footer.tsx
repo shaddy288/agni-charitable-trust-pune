@@ -11,10 +11,14 @@ import {
 } from "lucide-react";
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  // { icon: Facebook, href: "#", label: "Facebook" },
+  // { icon: Twitter, href: "#", label: "Twitter" },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/aganicharitabletrust?igsh=M2M5OXB5cng3dnlz",
+    label: "Instagram",
+  },
+  // { icon: Youtube, href: "#", label: "YouTube" },
 ];
 
 const quickLinks = [
@@ -144,6 +148,7 @@ export function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
+                  target="_blank"
                   className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
                 >
                   <social.icon className="w-5 h-5" />
