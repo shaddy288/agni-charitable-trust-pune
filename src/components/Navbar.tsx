@@ -4,7 +4,7 @@ import { Menu, X, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
+  { name: "Home", href: "https://agnicharitabletrustpune.com/" },
   { name: "About", href: "#about" },
   { name: "Activities", href: "#activities" },
   { name: "Team", href: "#team" },
@@ -45,7 +45,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <motion.a
-            href="#home"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection("#home");

@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X, Play, ChevronLeft, ChevronRight, Home } from "lucide-react";
 import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
 
+// Complete gallery - 23 images with 4 categories
 const galleryImages = Array.from({ length: 23 }, (_, i) => {
   const categories = [ "Food Drive"];
   return {
@@ -21,7 +21,7 @@ const videos = [
   {
     id: 1,
     title: "Our Impact Story",
-    thumbnail: "src/assets/gallery/thumb-1.png",
+    thumbnail: "src/assets/videos/thumb-1.png",
     videoUrl: "src/assets/gallery/story1.mp4",
   },
 ];
@@ -67,12 +67,23 @@ export default function GalleryPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-[#17402d] to-[#1a4d35] text-white py-20 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto pt-10">
+          {/* Back to Home */}
+          <motion.button
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+          >
+            <Home className="w-5 h-5" />
+            <span>Back to Home</span>
+          </motion.button>
+
           <div className="text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold mb-4 pt-20"
+              className="text-4xl md:text-6xl font-bold mb-4"
             >
               Our Gallery
             </motion.h1>
@@ -278,8 +289,6 @@ export default function GalleryPage() {
           </div>
         </motion.div>
       )}
-
-      <Footer />
     </div>
     </>
   );
