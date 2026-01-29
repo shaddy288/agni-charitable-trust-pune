@@ -21,7 +21,7 @@ const videos = [
   {
     id: 1,
     title: "Our Impact Story",
-    thumbnail: "src/assets/videos/thumb-1.png",
+    thumbnail: "src/assets/gallery/thumb-1.png",
     videoUrl: "src/assets/gallery/story1.mp4",
   },
 ];
