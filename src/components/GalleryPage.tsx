@@ -3,35 +3,26 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X, Play, ChevronLeft, ChevronRight, Home } from "lucide-react";
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 
-// Complete gallery - 30 images
-const galleryImages = Array.from({ length: 30 }, (_, i) => ({
-  id: i + 1,
-  src: `/assets/gallery/image-${i + 1}.jpg`,
-  alt: `Gallery Image ${i + 1}`,
-  category:
-    i % 3 === 0 ? "Education" : i % 3 === 1 ? "Healthcare" : "Community",
-}));
+const galleryImages = Array.from({ length: 23 }, (_, i) => {
+  const categories = [ "Food Drive"];
+  return {
+    id: i + 1,
+    src: `src/assets/gallery/preview-${i + 1}.jpeg`,
+    alt: `Gallery Image ${i + 1}`,
+    category: categories[i % categories.length],
+  };
+});
 
 // Videos
 const videos = [
   {
     id: 1,
     title: "Our Impact Story",
-    thumbnail: "/assets/videos/thumb-1.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  },
-  {
-    id: 2,
-    title: "Community Outreach Programs",
-    thumbnail: "/assets/videos/thumb-2.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  },
-  {
-    id: 3,
-    title: "Educational Initiatives",
-    thumbnail: "/assets/videos/thumb-3.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    thumbnail: "src/assets/gallery/thumb-1.png",
+    videoUrl: "src/assets/gallery/story1.mp4",
   },
 ];
 
@@ -40,7 +31,13 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [playingVideo, setPlayingVideo] = useState(null);
 
-  const categories = ["All", "Education", "Healthcare", "Community"];
+  const categories = [
+    "All",
+    // "Education",
+    // "Healthcare",
+    // "Community",
+    "Food Drive",
+  ];
 
   const filteredImages =
     selectedCategory === "All"
@@ -65,26 +62,17 @@ export default function GalleryPage() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-[#17402d] to-[#1a4d35] text-white py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          {/* Back to Home */}
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            onClick={() => (window.location.href = "/")}
-            className="flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
-          >
-            <Home className="w-5 h-5" />
-            <span>Back to Home</span>
-          </motion.button>
-
           <div className="text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold mb-4"
+              className="text-4xl md:text-6xl font-bold mb-4 pt-20"
             >
               Our Gallery
             </motion.h1>
@@ -132,7 +120,7 @@ export default function GalleryPage() {
           {/* Image Grid */}
           <motion.div
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
             {filteredImages.map((image, index) => (
               <motion.div
@@ -284,12 +272,15 @@ export default function GalleryPage() {
             <p className="text-lg font-semibold">{selectedImage.category}</p>
             <p className="text-sm opacity-75">
               {filteredImages.findIndex((img) => img.id === selectedImage.id) +
-                1}{" "}
+                1}
               / {filteredImages.length}
             </p>
           </div>
         </motion.div>
       )}
+
+      <Footer />
     </div>
+    </>
   );
 }
