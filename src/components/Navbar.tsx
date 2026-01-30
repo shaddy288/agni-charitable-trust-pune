@@ -2,18 +2,21 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { name: "Home", href: "https://agnicharitabletrustpune.com/" },
+  { name: "Home", href: "/" },
   { name: "About", href: "#about" },
   { name: "Activities", href: "#activities" },
   { name: "Team", href: "#team" },
-  { name: "Gallery", href: "#gallery" },
+  { name: "Gallery", href: "/gallery" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,12 +26,31 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
+
+    if (href.startsWith("#")) {
+      // Section link - scroll on same page
+      if (location.pathname !== "/") {
+        // If not on home page, go to home first then scroll
+        navigate("/");
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    } else {
+      // Page link - navigate
+      navigate(href);
+    }
   };
 
   return (
@@ -45,7 +67,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <motion.a
-            href="/"
+            href="#home"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection("#home");
@@ -117,7 +139,7 @@ export function Navbar() {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href);
+                    handleNavClick(link.href);
                   }}
                   className="font-medium text-foreground hover:text-primary py-2"
                 >
@@ -127,7 +149,7 @@ export function Navbar() {
               <Button
                 variant="donate"
                 size="lg"
-                onClick={() => scrollToSection("#donate")}
+                onClick={() => handleNavClick("#donate")}
                 className="w-full"
               >
                 <Heart className="w-4 h-4" />

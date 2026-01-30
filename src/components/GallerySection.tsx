@@ -1,57 +1,68 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+
+// Import images directly for Vite
+import preview1 from "@/assets/gallery/preview-1.jpeg";
+import preview2 from "@/assets/gallery/preview-2.jpeg";
+import preview3 from "@/assets/gallery/preview-3.jpeg";
+import preview4 from "@/assets/gallery/preview-4.jpeg";
+import preview5 from "@/assets/gallery/preview-5.jpeg";
+import preview6 from "@/assets/gallery/preview-6.jpeg";
+import preview7 from "@/assets/gallery/preview-7.jpeg";
+import preview8 from "@/assets/gallery/preview-8.jpeg";
 
 // Gallery preview images - 8 images only for section
 const galleryPreview = [
   {
     id: 1,
-    src: "/src/assets/gallery/preview-1.jpeg",
-    alt: "Republic",
-    category: "Food Drive", // ✅ Added category
+    src: preview1,
+    alt: "Republic Day Celebration",
+    category: "Food Drive",
   },
   {
     id: 2,
-    src: "/src/assets/gallery/preview-2.jpeg",
-    alt: "Republic", // ✅ Added alt
-    category: "Republic", // ✅ Optional: you can remove or modify this if not needed
+    src: preview2,
+    alt: "Republic Day Event",
+    category: "Republic",
   },
   {
     id: 3,
-    src: "/src/assets/gallery/preview-3.jpeg",
-    alt: "Republic", // ✅ Added alt
-    category: "Republic", // ✅ Optional
+    src: preview3,
+    alt: "Republic Day Program",
+    category: "Republic",
   },
   {
     id: 4,
-    src: "/src/assets/gallery/preview-4.jpeg",
+    src: preview4,
     alt: "Women Empowerment",
     category: "Community",
   },
   {
     id: 5,
-    src: "/src/assets/gallery/preview-5.jpeg",
+    src: preview5,
     alt: "Food Drive",
     category: "Community",
   },
   {
     id: 6,
-    src: "/src/assets/gallery/preview-6.jpeg",
+    src: preview6,
     alt: "Medical Camp",
     category: "Healthcare",
   },
   {
     id: 7,
-    src: "/src/assets/gallery/preview-7.jpeg",
+    src: preview7,
     alt: "School Support",
     category: "Education",
   },
   {
     id: 8,
-    src: "/src/assets/gallery/preview-8.jpeg",
+    src: preview8,
     alt: "Community Outreach",
     category: "Community",
   },
@@ -60,6 +71,7 @@ const galleryPreview = [
 export function GallerySection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const navigate = useNavigate();
 
   return (
     <section id="gallery" className="section-padding bg-gray-50">
@@ -98,9 +110,9 @@ export function GallerySection() {
                 src={image.src}
                 alt={image.alt}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                // onError={(e) => {
-                //   e.target.src = `https://placehold.co/400x400/17402d/f59f0a?text=Image+${image.id}`;
-                // }}
+                onError={(e) => {
+                  e.target.src = `https://placehold.co/400x400/17402d/f59f0a?text=Image+${image.id}`;
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#17402d]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-4 left-4 text-white">
@@ -124,7 +136,7 @@ export function GallerySection() {
           <Button
             variant="outline"
             size="lg"
-            onClick={() => (window.location.href = "/gallery")}
+            onClick={() => navigate("/gallery")}
             className="group border-[#17402d] text-[#17402d] hover:bg-[#17402d] hover:text-white"
           >
             View Full Gallery
